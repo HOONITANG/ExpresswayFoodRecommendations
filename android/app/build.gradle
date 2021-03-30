@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.ez_start_react_native"
+        applicationId "com.kemiez.expresswayfood"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

@@ -1,4 +1,4 @@
-package com.ez_start_react_native;
+package com.kemiez.expresswayfood;
 
 import android.app.Application;
 import android.content.Context;
