@@ -9,7 +9,7 @@ import {
     NAVIGATION_TODO
 } from './routes';
 
-import { Icon } from '../common';
+import { Icon } from '../common/elements';
 
 const Tab = createBottomTabNavigator();
 

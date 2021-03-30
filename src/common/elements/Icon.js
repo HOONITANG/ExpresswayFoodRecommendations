@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 // import PropTypes from './node_modules/prop-types';
 // import { ThemeContext } from '../../constants/theme';
-import getIconType from './helpers/getIconType';
+import { getIconType } from './helpers';
 
 // Possible icon set supported by this Icon component
 export const IconTypes = [
@@ -100,7 +100,7 @@ const Icon = ({ name, type, size, color, style, onPress, disabled }) => {
       <IconComponent
         size={size}
         name={name}
-        // color={disabled ? theme.disabledDarkColor : color || theme.iconColor}
+        color={disabled ? 'grey' : color || 'black'}
         style={StyleSheet.flatten([styles.iconStyle, style])}
       />
     </Component>
