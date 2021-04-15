@@ -9,6 +9,7 @@
 #import <AppCenterReactNative.h>
 #import <AppCenterReactNativeAnalytics.h>
 #import <AppCenterReactNativeCrashes.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -37,6 +38,7 @@ static void InitializeFlipper(UIApplication *application) {
 [AppCenterReactNative register];
 [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
 [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+[GMSServices provideAPIKey:@"AIzaSyAwCNFXMCsDuy7VPzeWyo8NNNO28ph4Wg0"]; // add this line using the api key obtained from Google Console
 
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);

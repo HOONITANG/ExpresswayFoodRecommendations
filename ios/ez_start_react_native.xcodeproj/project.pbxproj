@@ -21,6 +21,7 @@
 		85EF36F8012DA727040E309A /* libPods-ez_start_react_native.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 994D582D18260AF90F318E4F /* libPods-ez_start_react_native.a */; };
 		A2CAC381CB2419AE530CD098 /* libPods-ez_start_react_native-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 419CF12C373DD56E413EDA15 /* libPods-ez_start_react_native-tvOS.a */; };
 		BE36091F9B765CA470387AB3 /* libPods-ez_start_react_native-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99673F73E4682FA66ED9F12E /* libPods-ez_start_react_native-tvOSTests.a */; };
+		E60B8CB2261EF51400770446 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60B8CB1261EF51400770446 /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		AF20E51E4B3773AD62AE4957 /* Pods-ez_start_react_native-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ez_start_react_native-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ez_start_react_native-tvOSTests/Pods-ez_start_react_native-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D69FFEDBA05680CEA22539EE /* Pods-ez_start_react_native-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ez_start_react_native-tvOS.release.xcconfig"; path = "Target Support Files/Pods-ez_start_react_native-tvOS/Pods-ez_start_react_native-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		E07EBB777276585B7D57DE7F /* Pods-ez_start_react_native.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ez_start_react_native.debug.xcconfig"; path = "Target Support Files/Pods-ez_start_react_native/Pods-ez_start_react_native.debug.xcconfig"; sourceTree = "<group>"; };
+		E60B8CB0261EF51300770446 /* ez_start_react_native-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ez_start_react_native-Bridging-Header.h"; sourceTree = "<group>"; };
+		E60B8CB1261EF51400770446 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		EADCA3DB48F0C92EB39382B7 /* libPods-ez_start_react_native-ez_start_react_nativeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ez_start_react_native-ez_start_react_nativeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -135,6 +138,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				E60B8CB1261EF51400770446 /* File.swift */,
+				E60B8CB0261EF51300770446 /* ez_start_react_native-Bridging-Header.h */,
 			);
 			name = ez_start_react_native;
 			sourceTree = "<group>";
@@ -296,7 +301,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1240;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -445,6 +450,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ez_start_react_native/Pods-ez_start_react_native-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -465,6 +471,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -539,6 +546,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ez_start_react_native-ez_start_react_nativeTests/Pods-ez_start_react_native-ez_start_react_nativeTests-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -559,6 +567,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -636,6 +645,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				E60B8CB2261EF51400770446 /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -677,6 +687,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 472AB1D1A0F886F57B3E520E /* Pods-ez_start_react_native-ez_start_react_nativeTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -700,6 +711,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 91BC090652A113F83C6678CB /* Pods-ez_start_react_native-ez_start_react_nativeTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = ez_start_react_nativeTests/Info.plist;
@@ -731,8 +743,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kemiez.expresswayfood;
 				PRODUCT_NAME = ez_start_react_native;
+				SWIFT_OBJC_BRIDGING_HEADER = "ez_start_react_native-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -753,8 +766,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kemiez.expresswayfood;
 				PRODUCT_NAME = ez_start_react_native;
+				SWIFT_OBJC_BRIDGING_HEADER = "ez_start_react_native-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -1,8 +1,22 @@
 
 import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-// import { somethingScreen, somethingScreen } from '../screen';
-import { NAVIGATION_INIT } from './routes';
+
+import {
+    FoodListScreen,
+    HomeScreen,
+    MapScreen,
+    SearchScreen
+} from '../screen';
+
+import {
+    NAVIGATION_INIT,
+    NAVIGATION_HOME,
+    NAVIGATION_MAP,
+    NAVIGATION_FOODLIST,
+    NAVIGATION_SEARCH
+} from './routes';
+
 import BottomTabNavigator from './BottomTabNavigator';
 
 const Stack = createStackNavigator();
@@ -15,11 +29,16 @@ const StackNavigator = () => {
             <Stack.Screen 
                 name={NAVIGATION_INIT}
                 component={BottomTabNavigator}
+                options={{ title: "RestArea" }}
             />
-            {/* <Stack.Screen 
-                name={NAVIGATION_SomeThing}
-                component={SomethingScreen}
-            /> */}
+            <Stack.Screen 
+                name={NAVIGATION_FOODLIST}
+                component={FoodListScreen}
+            />
+            <Stack.Screen 
+                name={NAVIGATION_SEARCH}
+                component={SearchScreen}
+            />
             
         </Stack.Navigator>
     )

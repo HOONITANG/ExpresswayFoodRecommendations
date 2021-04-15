@@ -7,7 +7,7 @@ export const COLORS = {
   // default font color
   font: "#000000",
   // base colors
-  primary: "#99E1D9",
+  primary: "#57CC99",
   secondary: "#FFFAE3",
   tertiary: "#F7567C",
 
@@ -27,21 +27,23 @@ export const COLORS = {
   // 500 번이 기존 색깔 입니다.
   // 번호가 높을 수록 색이 어두워 집니다.
   // primary
-  "color_primary_100": "#FAFEFD",
-  "color_primary_200": "#F5FCFB",
-  "color_primary_300": "#E5F8F6",
-  "color_primary_400": "#CCF0EC",
-  "color_primary_500": "#99E1D9", 
-  "color_primary_600": "#73A9A3",
-  "color_primary_700": "#4D706D",
+  "color_primary_100": "#DFFCE4",
+  "color_primary_200": "#C0F9CF",
+  "color_primary_300": "#9DEFBB",
+  "color_primary_400": "#7FE0AC",
+  "color_primary_500": "#57CC99",
+  "color_primary_600": "#3FAF89",
+  "color_primary_700": "#2B927A",
+
   //secondary
-  "color_secondary_100": "#FFFFFE",
-  "color_secondary_200": "#FFFFFC",
-  "color_secondary_300": "#FFFEF8",
-  "color_secondary_400": "#FFFDF1",
-  "color_secondary_500": "#FFFAE3",  
-  "color_secondary_600": "#BFBCAA",
-  "color_secondary_700": "#807D71",
+  "color_secondary_100": "#D9FAEF",
+  "color_secondary_200": "#B4F6E6",
+  "color_secondary_300": "#89E3D6",
+  "color_secondary_400": "#65C9C2",
+  "color_secondary_500": "#38A3A5",
+  "color_secondary_600": "#28838D",
+  "color_secondary_700": "#1C6576",
+
   // tertiary
   "color_tertiary_100": "#FFF7F9",
   "color_tertiary_200": "#FEEEF2",

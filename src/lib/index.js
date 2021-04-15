@@ -51,6 +51,11 @@ export default lib = function() {
         test: function (a, b) {
             // something...
         },
+        price : {
+            comma : function(price) {
+                return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+        },
         percentage: { 
             progressCalculate: function (n1, n2) {
                 // n1: proceedDays
@@ -105,6 +110,87 @@ export default lib = function() {
                     words = str.split(ch);
                 }
                 return words;
+            }
+        },
+        helper: {
+            rad : function (x) {
+                return ( x * Math.PI ) / 180;
+            },
+            getDistance: function (p1, p2) {
+                // latitude : yValue
+                // longditude: xValue
+                const R = 6378; // Earth’s mean radius in meter 6378137
+                const dLat = this.rad(p2.yValue - p1.latitude);
+                const dLong = this.rad(p2.xValue - p1.longitude);
+                
+                const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + 
+                Math.cos(this.rad(p1.latitude)) * Math.cos(this.rad(p2.yValue)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                const d = R * c;
+                return parseInt(d); // returns the distance in meter
+            },
+            nearPoints: function (arr, p1) { //p1 => 내위치
+                // 위치 속성 삽입
+                return arr.map((rows) => {
+                    return { ...rows, nearPoint: this.getDistance(p1, rows)}
+                })
+            },
+            orderBynearPointList: function(arr, p1) { //p1 => 내위치
+                // 위치 순 정렬
+                arr.sort((a, b) => {
+                    return +(a.nearPoint > b.nearPoint) || +(a.nearPoint === b.nearPoint) - 1;
+                })
+            },
+            getJoinColumn : function(arr, value, colKey, colStr) {
+                /* 
+                    '배열 하나'와 '다른 배열의 키 값'을 받아 '특정 컬럼'을 반환하는 함수
+                    arr: 비교할 배열
+                    value: 비교할 키 값
+                    colKey: 키 값 string
+                    colStr: 꺼내야할 키값
+                */
+                let result = "";
+                for(i = 0; i < arr.length; i++) {
+                    if (arr[i][colKey] == value) {
+                        result = arr[i];
+                    }
+                }
+                return result[colStr];
+            },
+            getJoinObj : function(arr, value, colKey) {
+                /* 
+                    '배열 하나'와 '다른 배열의 키 값'을 받아 '특정 컬럼'의 객체를 반환하는 함수
+                    arr: 비교할 배열
+                    value: 비교할 키 값
+                    colKey: 키 값 string
+                */
+                let result = "";
+                for(i = 0; i < arr.length; i++) {
+                    if (arr[i][colKey] == value) {
+                        result = arr[i];
+                    }
+                }
+                return result;
+            },
+            getJoinArr : function (arr, arr2, colKey, ...args) { 
+                /*
+                    배열 두개를 join하여 특정 컬럼을 합쳐 배열로 반환하는 함수
+                    arr: 비교할 배열 1
+                    arr2: 비교할 배열 2
+                    colKey: 비교 할 수 있는 키 값 string
+                    colStr: 객체에서 꺼내야할 프로퍼티 값
+                */
+                let result = [];
+                if(Array.isArray(arr)) {
+                    result = arr.map((rows) => {
+                        const joinObj = this.getJoinObj(arr2, rows[colKey], colKey) ;
+                        args.map((col) => {
+                            rows[col] = joinObj[col];
+                        })
+                        return { ...rows }
+                    })
+                }
+                return result;
             }
         }
     }

@@ -3,10 +3,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
     HomeScreen,
     TodoScreen,
+    MapScreen,
 } from '../screen';
 import {
     NAVIGATION_HOME,
-    NAVIGATION_TODO
+    NAVIGATION_TODO,
+    NAVIGATION_MAP,
 } from './routes';
 
 import { Icon } from '../common/elements';
@@ -19,29 +21,29 @@ const BottomTabNavigator = ({ navigation }) => {
             lazy
         >
             <Tab.Screen
-            name={NAVIGATION_HOME}
-            component={HomeScreen}
-            options={{
-            tabBarIcon: ({ color, focused }) => (
-                <Icon
-                type="ionicon"
-                name={focused ? 'home' : 'home-outline'}
-                color={color}
-                />
-            ),
-            }}
+                name={NAVIGATION_HOME}
+                component={HomeScreen}
+                options={{
+                tabBarIcon: ({ color, focused }) => (
+                        <Icon
+                        type="ionicon"
+                        name={focused ? 'home' : 'home-outline'}
+                        color={color}
+                        />
+                    ),
+                }}
             />
             <Tab.Screen
                 name={NAVIGATION_TODO}
                 component={TodoScreen}
                 options={{
                 tabBarIcon: ({ color, focused }) => (
-                    <Icon
-                    type="antdesign"
-                    name={focused ? 'appstore1' : 'appstore-o'}
-                    color={color}
-                    />
-                ),
+                        <Icon
+                        type="antdesign"
+                        name={focused ? 'appstore1' : 'appstore-o'}
+                        color={color}
+                        />
+                    ),
                 }}
                 // listeners={{
                 //     tabPress: e => {
@@ -53,6 +55,19 @@ const BottomTabNavigator = ({ navigation }) => {
                 //         }
                 //     },
                 // }}
+            />
+            <Tab.Screen
+                name={NAVIGATION_MAP}
+                component={MapScreen}
+                options={{
+                    tabBarIcon: ({ color, focused }) => (
+                        <Icon 
+                            type="feather"
+                            name="map"
+                            color={ color }
+                        />
+                    )
+                }}
             />
         </Tab.Navigator>
     );
