@@ -31,6 +31,22 @@ export const fetchRestLocations = async (routeNo) => {
     return data;
 }
 
+export const fetchAllRestLocations = async () => {
+    const url = `https://data.ex.co.kr/openapi/locationinfo/locationinfoRest?key=${apiKey}&type=json&numOfRows=100`
+    let result = [];
+    const pages = ['1','2','3','4'];
+    // page 크기 만큼 네트워크 fetch을 진행 한 후 데이터를 병합함.
+    const data = await Promise.all(
+        pages.map( i => { return fetch(url+`&pageNo=${i}`); })
+    );
+    // 원하는 데이터만 따로 추출해서 병합함.
+    data.map((i) => {
+        result = result.concat(i.list);
+    })
+
+    return result;
+}
+
 export const fetchRoutes = async ({ pageParam = 1 }) => {
     const url = `https://data.ex.co.kr/openapi/locationinfo/locationinfoRest?key=${apiKey}&type=json&numOfRows=100&pageNo=${pageParam}`
     const data = await fetch(url);
@@ -68,6 +84,10 @@ export function useRoutes(stdRestCd) {
             }
         }
     );
+}
+
+export function useRestLocations() {
+    return useQuery(['restLocations'], fetchAllRestLocations)
 }
 
 export function useRestLocationsById(routeNo) {

@@ -1,14 +1,15 @@
 import React from 'react'
 import { SafeAreaView } from 'react-native'
 import { connect } from 'react-redux'
-import { addTodo, deleteTodo } from '../../state/todo/todoActions'
-import TodoInput from './components/TodoInput'
+import { COLORS } from '../../common/elements/theme'
+import {  deleteTodo } from '../../state/todo/todoActions'
 import TodoList from './components/TodoList'
+import { NAVIGATION_FOODLIST, NAVIGATION_SEARCH } from '../../navigation/routes';
 
-const TodoScreen = ({ todo_list, addTodo, deleteTodo }) => {
+const TodoScreen = ({ todo_list, deleteTodo, navigation }) => {
 
-    const handleAddTodo = (task) => {
-        addTodo(task)
+    const navigationToFoodList = (params) => {
+        navigation.navigate(NAVIGATION_FOODLIST, params)
     }
 
     const handleDeleteTodo = (id) => {
@@ -16,9 +17,8 @@ const TodoScreen = ({ todo_list, addTodo, deleteTodo }) => {
     }
 
     return ( 
-        <SafeAreaView>
-            <TodoInput handleAddTodo={handleAddTodo} />
-            <TodoList todo_list={todo_list} handleDeleteTodo={handleDeleteTodo} />
+        <SafeAreaView style={{flex : 1, backgroundColor: COLORS.white}}>
+            <TodoList todo_list={todo_list} onNavi={navigationToFoodList} handleDeleteTodo={handleDeleteTodo} />
         </SafeAreaView>
     )
 }
@@ -30,7 +30,7 @@ const mapStateToProps = (state, ownPros) => {
     }
 }
 
-const mapDispatchToProps = { addTodo, deleteTodo }
+const mapDispatchToProps = { deleteTodo }
 
 // const mapDispatchToProps = dispatch => {
 //     return {

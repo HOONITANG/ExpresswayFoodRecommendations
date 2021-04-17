@@ -12,12 +12,9 @@ export const updateUser = (user_id) => {
     }
 }
 
-export const addTodo = task => ({
+export const addTodo = item => ({
     type: ADD_TODO,
-    payload: {
-        id: ++nextTodoId,
-        task
-    }
+    payload: { item }
 });
 
 export const deleteTodo = id => ({

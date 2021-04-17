@@ -65,7 +65,6 @@ export default function FoodListScreen ({ navigation, route }) {
     return (
         <Block white>
             <Text marginHorizontal={20} titleHeavy marginVertical={16}> 음식 리스트 </Text>
-            {console.log(data.pages[0].list)}
             <FlatList
                 showsVerticalScrollIndicator={false}
                 style={styles.flatListView}

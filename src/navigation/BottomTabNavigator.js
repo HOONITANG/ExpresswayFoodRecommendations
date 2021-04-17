@@ -39,8 +39,8 @@ const BottomTabNavigator = ({ navigation }) => {
                 options={{
                 tabBarIcon: ({ color, focused }) => (
                         <Icon
-                        type="antdesign"
-                        name={focused ? 'appstore1' : 'appstore-o'}
+                        type="fontisto"
+                        name="favorite"
                         color={color}
                         />
                     ),
@@ -69,6 +69,7 @@ const BottomTabNavigator = ({ navigation }) => {
                     )
                 }}
             />
+            
         </Tab.Navigator>
     );
 };

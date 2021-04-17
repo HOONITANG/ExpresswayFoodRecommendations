@@ -39,10 +39,6 @@ const getDistance = (p1, p2) => {
     Math.cos(rad(p1.latitude)) * Math.cos(rad(p2.yValue)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
-
-
-    console.log("hidddd");
-    console.log(d);
     return d; // returns the distance in meter
 }
 

@@ -191,7 +191,26 @@ export default lib = function() {
                     })
                 }
                 return result;
+            }, 
+            findByIds : function(arr, arrStr, colKey) {
+                let result = [];
+                if(Array.isArray(arr) && Array.isArray(arrStr)) { 
+                    result = arr.filter((element, index, array) => {
+                        return arrStr.includes(element[colKey]);
+                    })
+                }
+                return result;
+            }, 
+            getUniqObjFromArray : function(arr, param) {
+                return arr.filter(function(element, index, array){
+                    return array.map(function(mItem){ return mItem[param]; }).indexOf(element[param]) === index;
+                })
             }
+            // function uniq(a, param){
+            //     return a.filter(function(item, pos, array){
+            //         return array.map(function(mapItem){ return mapItem[param]; }).indexOf(item[param]) === pos;
+            //     })
+            // }
         }
     }
 

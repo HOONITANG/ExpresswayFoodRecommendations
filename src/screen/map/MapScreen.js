@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Image, StyleSheet, Dimensions, Animated, Scroll
 import { Block, Text } from '../../common/elements';
 import images from '../../constants/images';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
-import { useRestLocations } from '../../api/apiHandler';
+import { useRestLocationsById, useRestLocations } from '../../api/apiHandler';
 import { TextInput } from 'react-native-gesture-handler';
 import { Icon } from '../../common/elements';
 
@@ -182,8 +182,8 @@ const initialMapState = {
     }
 }
 
-function Markers (data, onMarkerPress, interpolations) {
-    return data?.list?.map((item,index) => {
+function Markers (data, onMarkerPress,interpolations) {
+    return data?.map((item,index) => {
         const scaleStyle = {
             transform: [
                 {
@@ -219,44 +219,48 @@ function MapScreen () {
 
     const [state, setState] = useState(initialMapState);
 
-    let mapIndex = 0;
+    // let mapIndex = 0;
     let mapAnimation = new Animated.Value(0);
-    const { status, data, } = useRestLocations("0010");
+    const { status, data } = useRestLocations();
+    // const { status, data } = useRestLocationsById("0010");
+    useEffect(() => { 
+        hedata
+    },[]);
 
-    useEffect(() => {
-        mapAnimation.addListener(({value}) => {
-            let index = Math.floor((value + SPACING_FOR_CARD_INSET * 2) / (width - (SPACING_FOR_CARD_INSET * 2))) // animate 30% away from landing on the next item
-            const locations = data?.list;
-            // 한번 스크롤 할 때 움직이는 value 의 차이는
-            // width 의 길이이나 스크롤 내부에 padding을 넣었다면 그 만큼 제외해주어야 한다.
+    // useEffect(() => {
+    //     mapAnimation.addListener(({value}) => {
+    //         let index = Math.floor((value + SPACING_FOR_CARD_INSET * 2) / (width - (SPACING_FOR_CARD_INSET * 2))) // animate 30% away from landing on the next item
+    //         const locations = data?.list;
+    //         // 한번 스크롤 할 때 움직이는 value 의 차이는
+    //         // width 의 길이이나 스크롤 내부에 padding을 넣었다면 그 만큼 제외해주어야 한다.
      
-            if ( index >= locations.length) {
-                index = locations.length - 1 ;
-            }
-            if ( index <= 0) {
-                index = 0;
-            }
-            clearTimeout(regionTimeout);
+    //         if ( index >= locations.length) {
+    //             index = locations.length - 1 ;
+    //         }
+    //         if ( index <= 0) {
+    //             index = 0;
+    //         }
+    //         clearTimeout(regionTimeout);
 
-            const regionTimeout = setTimeout(() => {
-                if (mapIndex !== index) {
-                    mapIndex = index;
-                    _map.current.animateToRegion({
-                        latitude: parseFloat(locations[index].yValue),
-                        longitude: parseFloat(locations[index].xValue),
-                        latitudeDelta: 0.015,
-                        longitudeDelta: 0.0121,
-                    }, 350);
-                }
-            }, 10);
-        });
-    });
+    //         const regionTimeout = setTimeout(() => {
+    //             if (mapIndex !== index) {
+    //                 mapIndex = index;
+    //                 _map.current.animateToRegion({
+    //                     latitude: parseFloat(locations[index].yValue),
+    //                     longitude: parseFloat(locations[index].xValue),
+    //                     latitudeDelta: 0.015,
+    //                     longitudeDelta: 0.0121,
+    //                 }, 350);
+    //             }
+    //         }, 10);
+    //     });
+    // });
     
 
-    const _map = React.useRef(null);
-    const _scrollView =React.useRef(null);
+    // const _map = React.useRef(null);
+    // const _scrollView =React.useRef(null);
 
-    const interpolations = data?.list.map((page,index) => {
+    const interpolations = data?.map((page,index) => {
         const inputRange = [
             (index - 1) * CARD_WIDTH,
             index * CARD_WIDTH,
@@ -272,14 +276,15 @@ function MapScreen () {
 
     const onMarkerPress = (mapEventData) => {
 
-        const markerID = Number(mapEventData._targetInst.return.key) + 1;
-        let x = (markerID * (width - (SPACING_FOR_CARD_INSET * 2))) - (width - (SPACING_FOR_CARD_INSET * 2)) ;
+        console.log("click")
+        // const markerID = Number(mapEventData._targetInst.return.key) + 1;
+        // let x = (markerID * (width - (SPACING_FOR_CARD_INSET * 2))) - (width - (SPACING_FOR_CARD_INSET * 2)) ;
 
-        if (Platform.OS === 'ios') {
-            x = x - SPACING_FOR_CARD_INSET;
-        } 
+        // if (Platform.OS === 'ios') {
+        //     x = x - SPACING_FOR_CARD_INSET;
+        // } 
 
-        _scrollView.current.scrollTo({ x: x, y:0, animated: true })
+        // _scrollView.current.scrollTo({ x: x, y:0, animated: true })
     }
 
     if ( status == "loading" ) return <Text>Loading...</Text>;
@@ -287,8 +292,9 @@ function MapScreen () {
     
     return (
         <View style={styles.container}>
+            {console.log("asdasdasdsa!!!@!#!@#")}
             <MapView
-                ref={_map}
+                // ref={_map}
                 provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                 initialRegion={state.region}
                 style={styles.container}
@@ -305,7 +311,7 @@ function MapScreen () {
                 />
                 <Icon type="ionicon" name="ios-search" size={20}/>
             </View>
-            <ScrollView
+            {/* <ScrollView
                 horizontal
                 scrollEventThrottle={1}
                 showsHorizontalScrollIndicator={false}
@@ -327,8 +333,8 @@ function MapScreen () {
                         <Text>{category.name}</Text>
                     </TouchableOpacity>
                 ))}
-            </ScrollView>
-            <Animated.ScrollView
+            </ScrollView> */}
+            {/* <Animated.ScrollView
                 ref={_scrollView}
                 horizontal
                 scrollEventThrottle={1}
@@ -379,7 +385,7 @@ function MapScreen () {
                         </View>
                     </View>    
                 ))}
-            </Animated.ScrollView>
+            </Animated.ScrollView> */}
         </View>
     )
 }
