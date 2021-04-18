@@ -31,6 +31,7 @@ export const fetchRestLocations = async (routeNo) => {
     return data;
 }
 
+
 export const fetchAllRestLocations = async () => {
     const url = `https://data.ex.co.kr/openapi/locationinfo/locationinfoRest?key=${apiKey}&type=json&numOfRows=100`
     let result = [];
@@ -39,7 +40,7 @@ export const fetchAllRestLocations = async () => {
     const data = await Promise.all(
         pages.map( i => { return fetch(url+`&pageNo=${i}`); })
     );
-    // 원하는 데이터만 따로 추출해서 병합함.
+    // 리스트 데이터만 따로 추출해서 병합함.
     data.map((i) => {
         result = result.concat(i.list);
     })
@@ -53,15 +54,39 @@ export const fetchRoutes = async ({ pageParam = 1 }) => {
     return data;
 }
 
-export const fetchRepresentFood = async (routeNo, list) => {
+export const fetchRepresentFoods = async (routeNo) => {
+    const url = `https://data.ex.co.kr/openapi/business/representFoodServiceArea?key=${apiKey}&type=json&routeCode=${routeNo}&numOfRows=100&pageNo=1`;
+    const data = await fetch(url);
+    return data;
+};
+
+export const fetchRestDirections = async (routeNo) => {
+    const url = `https://data.ex.co.kr/openapi/business/conveniServiceArea?key=${apiKey}&type=json&routeCode=${routeNo}&numOfRows=100&pageNo=1`;
+    const data = await fetch(url);
+    return data;
+};
+
+export const fetchRestArea = async (routeNo) => {
+    const location = await fetchRestLocations(routeNo);
     const url = `https://data.ex.co.kr/openapi/business/representFoodServiceArea?key=${apiKey}&type=json&routeCode=${routeNo}&numOfRows=100&pageNo=1`;
     const data = await fetch(url);
     // list : 거리가 포함된 데이터
     // Tv : 이영자 소개 데이터
-    let result = helper.getJoinArr(list, data.list, 'serviceAreaCode', 'batchMenu');
+    let result = helper.getJoinArr(location.list, data.list, 'serviceAreaCode', 'batchMenu');
     result = helper.getJoinArr(result, tv, 'serviceAreaCode', 'tvFoodNm', 'etc', 'tvShow');
     return result;
 };
+
+export const fetchLocationInitMap = async (routeNo) => {
+    const location = await fetchRestLocations(routeNo);
+    const direction = await fetchRestDirections(routeNo);
+
+    // list : 거리가 포함된 데이터
+    // Tv : 이영자 소개 데이터
+    let result = helper.getJoinArr(location.list, direction.list, 'serviceAreaCode', 'batchMenu');
+    result = helper.getJoinArr(result, tv, 'serviceAreaCode', 'tvFoodNm', 'etc', 'tvShow');
+    return result;
+}
 
 export function useFoods(stdRestCd) {
     params.stdRestCd = stdRestCd;
@@ -93,9 +118,12 @@ export function useRestLocations() {
 export function useRestLocationsById(routeNo) {
     return useQuery(['restLocations', routeNo], async() => fetchRestLocations(routeNo))
 }
+export function useRestLocationForMap(routeNo) {
+    return useQuery(['restLocationForMap', routeNo], async() => fetchLocationInitMap(routeNo))
+}
 
-export function useRepresentFoodById(routeNo, list) {
-    return useQuery(['representFood', routeNo], async() => fetchRepresentFood(routeNo, list))
+export function useRestArea(routeNo, list) {
+    return useQuery(['representFood', routeNo], async() => fetchRestArea(routeNo, list))
 }
 
 // export function useRoutes(routeNo) {

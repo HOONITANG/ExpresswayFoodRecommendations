@@ -6,7 +6,7 @@ import { useRoutes } from '../../../api/apiHandler';
 
 const { width, height } = Dimensions.get("window");
 
-export default function FilterModal({ open, closeModal, setList, setRouteNo, setPlaceholder }) {
+export default function FilterModal({ open, closeModal,  setRouteNo, setPlaceholder }) {
 
     const { status, data, fetchNextPage, hasNextPage } = useRoutes();
     let routes;
@@ -29,7 +29,6 @@ export default function FilterModal({ open, closeModal, setList, setRouteNo, set
         const items = list.filter((e, i, self) => {
             return e.routeName == item ;
         })
-        setList(items);
         setRouteNo(items[0].routeNo);
         setPlaceholder(items[0].routeName);
         closeModal();

@@ -12,9 +12,8 @@ import FilterModal from './components/FilterModal';
 function HomeContainer({ navigation, addTodo }) {
 
     const { open, openModal, closeModal } = useModal();
-    const [ placeholder , setPlaceholder ] = useState('고속도로 노선 검색')
-    const [ list, setList ] = useState('고속도로를 검색해주세요.'); // 고속도로 데이터 - 고속도로 노선명을 사용하여 자바스크립트로 filter을 거쳐 저장함.
-    const [ routeNo, setRouteNo ] = useState(''); 
+    const [ placeholder , setPlaceholder ] = useState('경부선')
+    const [ routeNo, setRouteNo ] = useState('0010'); 
 
     const navigationToFoodList = (params) => {
         navigation.navigate(NAVIGATION_FOODLIST, params)
@@ -27,8 +26,8 @@ function HomeContainer({ navigation, addTodo }) {
     return (
         <Block safe flex white>
             <Header openModal={openModal} placeholder={placeholder} />
-            <RestLocations onNavi={navigationToFoodList} list={list} routeNo={routeNo} addTodo={addTodo}/>
-            <FilterModal closeModal={closeModal} open={open} setList={setList} setRouteNo={setRouteNo} setPlaceholder={setPlaceholder}/>
+            <RestLocations onNavi={navigationToFoodList}  routeNo={routeNo} addTodo={addTodo}/>
+            <FilterModal closeModal={closeModal} open={open} setRouteNo={setRouteNo} setPlaceholder={setPlaceholder}/>
         </Block>
     )
 }

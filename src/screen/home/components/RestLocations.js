@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { View, TouchableOpacity, FlatList, StyleSheet, Image, Platform, PermissionsAndroid } from 'react-native'
 import Geolocation from 'react-native-geolocation-service';
-import { useRepresentFoodById } from '../../../api/apiHandler';
+import { useRestArea } from '../../../api/apiHandler';
 import { Block, Text, Icon } from '../../../common/elements'
 import { COLORS } from '../../../common/elements/theme';
 import lib from '../../../lib';
-import tvList from '../../../constants/data/tv';
 
 const { helper } = lib;
 
-export default function RestLocations({ onNavi, list, routeNo, addTodo }) {
+export default function RestLocations({ onNavi, routeNo, addTodo }) {
 
     const [myLocation, setLocation] = useState();
-    const { status, data } = useRepresentFoodById(routeNo, list);
+    const { status, data } = useRestArea(routeNo);
 
     async function requestPermission() {
         try {
@@ -41,6 +40,7 @@ export default function RestLocations({ onNavi, list, routeNo, addTodo }) {
             if (result === "granted") { 
                 Geolocation.getCurrentPosition( 
                     pos => { 
+                        console.log("pos실행요!")
                         setLocation(pos.coords);
                     }, error => { 
                         console.log(error); 
