@@ -40,7 +40,6 @@ export default function RestLocations({ onNavi, routeNo, addTodo }) {
             if (result === "granted") { 
                 Geolocation.getCurrentPosition( 
                     pos => { 
-                        console.log("pos실행요!")
                         setLocation(pos.coords);
                     }, error => { 
                         console.log(error); 
@@ -53,7 +52,7 @@ export default function RestLocations({ onNavi, routeNo, addTodo }) {
                 ); 
             } 
         }); 
-    }, []);
+    }, [routeNo]);
 
     if (status === "loading") return <Text>Loading...</Text>;
     if (status === "error") return <Text>Error :(</Text>;

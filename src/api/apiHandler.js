@@ -7,11 +7,9 @@ const { helper } = lib;
 
 /*
 apiKey는 한국도로공사 API Key
-serviceKey는 공공데이터 포털 키
 */
 
 const apiKey = "4008963540";
-const serviceKey = "fp9ZFJ07Vvb4djBjCFjoq67eXYDIe23cZpN8vtOGcGI0nRz5TdSKkWDTMdtfzryzz%2BzdiqDAQ1RmkGRu4EJURQ%3D%3D"; 
 
 const params = {
     stdRestCd: "00001",
