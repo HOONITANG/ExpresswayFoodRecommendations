@@ -2,6 +2,8 @@
 export const ADD_TODO = 'ADD_TODO'
 //update current event id 
 export const DELETE_TODO = 'DELETE_TODO'
+// fetch all events
+export const ADD_PARAM = 'ADD_PARAM';
 
 let nextTodoId = 0;
 
@@ -16,6 +18,12 @@ export const addTodo = item => ({
     type: ADD_TODO,
     payload: { item }
 });
+
+export const addParam = item => ({
+    type: ADD_PARAM,
+    payload: item
+})
+
 
 export const deleteTodo = id => ({
     type: DELETE_TODO,

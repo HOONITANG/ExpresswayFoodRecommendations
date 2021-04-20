@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, TouchableOpacity, FlatList, StyleSheet, Dimensions } from 'react-native'
+import { View, TouchableOpacity, FlatList, StyleSheet, Dimensions, Alert } from 'react-native'
 import { Block, Text, Icon } from '../../common/elements';
+import { connect } from 'react-redux';
+import { addTodo } from '../../state/todo/todoActions';
 import { useFoods } from '../../api/apiHandler';
 import { COLORS } from '../../common/elements/theme';
 import { useState } from 'react/cjs/react.development';
@@ -9,9 +11,10 @@ import lib from '../../lib';
 const { price } = lib;
 const { width, height } = Dimensions.get("window");
 
-export default function FoodListScreen ({ navigation, route }) {
+function FoodListScreen ({ navigation, route, addTodo }) {
 
     const { params } = route;
+    const { stdRestCd } = params;
     const { 
         status,
         data,
@@ -22,9 +25,14 @@ export default function FoodListScreen ({ navigation, route }) {
         fetchNextPage,
         fetchPreviousPage,
         hasNextPage,
-        hasPreviousPage } = useFoods(params);
+        hasPreviousPage } = useFoods(stdRestCd);
     const [currentIndex, setCurrentIndex] = useState(null);
     const [currentInfoIndex, setCurrentInfoIndex] = useState(null);
+
+    const handleAddFavorite = () => {
+        addTodo(params);
+        Alert.alert("즐겨찾기에 등록되었습니다. ")
+    }
 
     const initialState = {
         categories: [
@@ -111,6 +119,20 @@ export default function FoodListScreen ({ navigation, route }) {
                 onEndReached={ hasNextPage ? fetchNextPage : ()=>{}}
                 keyExtractor={(item,index) => index.toString()}
             />
+            <TouchableOpacity style={{ position: 'absolute', right: 20, left: 20, bottom: 100, }} onPress={handleAddFavorite}>
+                <Block 
+                    center 
+                    middle 
+                    padding={12} 
+                    borderRadius={4} borderWidth={0.5} 
+                    borderColor={COLORS.skyblue} 
+                    backgroundColor={COLORS.skyblue}
+                    row
+                >
+                    <Icon type="fontisto" name="favorite" color={COLORS.white} size={18}/>
+                    <Text subHeaderHeavy white marginLeft={8}>즐겨찾기 추가</Text>
+                </Block>
+            </TouchableOpacity>
         </Block>
     )
 }
@@ -123,7 +145,7 @@ const styles = StyleSheet.create({
         marginVertical: 16,
     },
     flatListView: {
-        marginBottom: 100
+        marginBottom: 140
     },
     cardHeaderColor: {
         backgroundColor: COLORS.color_primary_300,
@@ -157,3 +179,13 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.color_primary_400
     }
 })
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        todo: state.todo_list
+    }
+}
+
+const mapDispatchToProps = { addTodo }
+
+export default connect(mapStateToProps, mapDispatchToProps)(FoodListScreen)

@@ -4,5 +4,6 @@ import FilterModal from './FilterModal';
 import Markers from './Markers';
 import MapView from './MapView';
 import MyMarker from './MyMarker';
+import GpsButton from './GpsButton';
 
-export { Header, FilterModal, Markers, MapView, MyMarker };
+export { Header, FilterModal, Markers, MapView, MyMarker, GpsButton };

@@ -10,7 +10,7 @@ import {
     NAVIGATION_TODO,
     NAVIGATION_MAP,
 } from './routes';
-
+import TopTabNavigation from './TopTabNavigation';
 import { Icon } from '../common/elements';
 
 const Tab = createBottomTabNavigator();
@@ -22,7 +22,7 @@ const BottomTabNavigator = ({ navigation }) => {
         >
             <Tab.Screen
                 name={NAVIGATION_HOME}
-                component={HomeScreen}
+                component={TopTabNavigation}
                 options={{
                 tabBarIcon: ({ color, focused }) => (
                         <Icon

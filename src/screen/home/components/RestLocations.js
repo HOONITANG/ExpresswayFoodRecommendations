@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, TouchableOpacity, FlatList, StyleSheet, Image, Platform, PermissionsAndroid } from 'react-native'
+import { View, TouchableOpacity, FlatList, StyleSheet, Image, Platform, PermissionsAndroid, Alert } from 'react-native'
 import Geolocation from 'react-native-geolocation-service';
 import { useRestArea } from '../../../api/apiHandler';
 import { Block, Text, Icon } from '../../../common/elements'
@@ -32,6 +32,7 @@ export default function RestLocations({ onNavi, routeNo, addTodo }) {
 
     const handleAddTodo = (task) => {
         // console.log(task);
+        Alert.alert("즐겨찾기에 등록되었습니다. ")
         addTodo(task)
     }
 
@@ -71,7 +72,7 @@ export default function RestLocations({ onNavi, routeNo, addTodo }) {
             <FlatList
                 data={data}
                 renderItem={({ item, index }) => (
-                    <TouchableOpacity key={item.unitCode} onPress={() => onNavi(item.stdRestCd)}>
+                    <TouchableOpacity key={item.unitCode} onPress={() => onNavi(item)}>
                         <View style={styles.cardView}>
                             {/* <Image style={styles.cardViewImage} source={{uri: "https://via.placeholder.com/80"}} /> */}
                             <View style={styles.cardTextView}>

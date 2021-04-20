@@ -30,9 +30,7 @@ const styles = StyleSheet.create({
 
 function Markers ({ data, onMarkerPress, myLocation }) {
     if(!myLocation) {
-        return (
-            <Block></Block>
-        )
+        return <Block></Block>
     }
     return data?.map((item,index) => {
         return (
@@ -48,7 +46,7 @@ function Markers ({ data, onMarkerPress, myLocation }) {
                 <>
                     <Animated.View style={styles.markerWrap}>
                         <Animated.Image
-                            source={images.mapMarker} 
+                            source={item.tvShow == "Y" ? images.foodMarker : images.mapMarker} 
                             style={styles.marker}
                             resizeMode="cover"
                         />

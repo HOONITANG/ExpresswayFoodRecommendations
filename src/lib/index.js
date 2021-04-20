@@ -119,6 +119,9 @@ export default lib = function() {
             getDistance: function (p1, p2) {
                 // latitude : yValue
                 // longditude: xValue
+                if(p1 == undefined || p2 == undefined) {
+                    return 0;
+                }
                 const R = 6378; // Earth’s mean radius in meter 6378137
                 const dLat = this.rad(p2.yValue - p1.latitude);
                 const dLong = this.rad(p2.xValue - p1.longitude);

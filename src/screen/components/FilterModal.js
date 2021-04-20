@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, Dimensions, StyleSheet, Modal, TouchableOpacity, TouchableWithoutFeedback, FlatList } from 'react-native'
-import { Block, Icon, Text } from '../../../common/elements'
-import { COLORS, FONTS } from '../../../common/elements/theme';
-import { useRoutes } from '../../../api/apiHandler';
+import { Block, Icon, Text } from '../../common/elements'
+import { COLORS, FONTS } from '../../common/elements/theme';
+import { useRoutes } from '../../api/apiHandler';
 
 const { width, height } = Dimensions.get("window");
 

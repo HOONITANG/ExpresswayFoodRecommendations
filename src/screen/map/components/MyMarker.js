@@ -30,9 +30,7 @@ const styles = StyleSheet.create({
 
 function MyMarker ({ myLocation }) {
     if(!myLocation) {
-        return (
-            <Block></Block>
-        )
+        return <Block></Block>
     }
     return (
         <Marker

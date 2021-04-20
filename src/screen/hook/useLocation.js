@@ -22,17 +22,11 @@ const useLocation = () => {
         }
     }
 
-    const receiveLocation = (result, setLocation, mapRef) => {
+    const receiveLocation = (result, setLocation) => {
         if (result === "granted") { 
             Geolocation.getCurrentPosition( 
                 pos => { 
                     setLocation(pos.coords);
-                    mapRef.current.animateToRegion({
-                        latitude: pos.coords.latitude,
-                        longitude: pos.coords.longitude,
-                        latitudeDelta: 0.15,
-                        longitudeDelta: 0.21,
-                    })
                 }, error => { 
                     console.log(error); 
                 }, 
@@ -45,7 +39,28 @@ const useLocation = () => {
         } 
     }
 
-    return { myLocation, setLocation, requestPermission, receiveLocation };
+    const moveLocation = (setLocation, mapRef) => {
+        Geolocation.getCurrentPosition( 
+            pos => { 
+                setLocation(pos.coords);
+                mapRef?.current.animateToRegion({
+                    latitude: pos.coords.latitude,
+                    longitude: pos.coords.longitude,
+                    latitudeDelta: 0.15,
+                    longitudeDelta: 0.21,
+                })
+            }, error => { 
+                console.log(error); 
+            }, 
+            { 
+                enableHighAccuracy: true, 
+                timeout: 3600, 
+                maximumAge: 3600, 
+            }, 
+        ); 
+    }
+
+    return { myLocation, setLocation, requestPermission, receiveLocation, moveLocation };
 
 };
 
