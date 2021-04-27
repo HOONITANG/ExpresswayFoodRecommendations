@@ -12,15 +12,15 @@ function MapScreen ({ navigation }) {
     const { myLocation, setLocation, requestPermission, receiveLocation, moveLocation } = useLocation();
     const [ placeholder , setPlaceholder ] = useState('경부선')
     const [ routeNo, setRouteNo ] = useState('0010'); 
-    const { status, data } = useRestArea(routeNo);
+    const { status, data, error } = useRestArea(routeNo);
     const mapRef = React.useRef();
 
     const navigationToFoodList = (params) => {
         navigation.navigate(NAVIGATION_FOODLIST, params)
     }
 
-    const onMarkerPress = (stdRestCd) => {
-        navigationToFoodList(stdRestCd)
+    const onMarkerPress = (item) => {
+        navigationToFoodList(item)
     }
 
     const handleGpsClick = () => {
@@ -32,7 +32,7 @@ function MapScreen ({ navigation }) {
     }, [routeNo]);
 
     if ( status == "loading" ) return <Text>Loading...</Text>;
-    if ( status == "error" ) return <Text>Error :(</Text>;
+    if ( status == "error" ) return <Text>error...</Text>;
 
     if(!myLocation) {
         <Block>

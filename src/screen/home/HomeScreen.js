@@ -8,7 +8,6 @@ import { NAVIGATION_FOODLIST, NAVIGATION_SEARCH } from '../../navigation/routes'
 import useModal from '../hook/useModal';
 import FilterModal from '../components/FilterModal';
 
-
 function HomeContainer({ navigation, addTodo, addParam, placeholder, routeNo }) {
 
     const { open, openModal, closeModal } = useModal();

@@ -208,6 +208,20 @@ export default lib = function() {
                 return arr.filter(function(element, index, array){
                     return array.map(function(mItem){ return mItem[param]; }).indexOf(element[param]) === index;
                 })
+            },
+            filterArr : function(arr, col, val) {
+                return arr.filter(function(element, index, array){
+                    return element[col] == val;
+                })
+            },
+            sortArr : function (arr, col, asc) {
+                arr.sort(function(a, b) {
+                    if(asc) {
+                        return (a[col] > b[col]) ? 1 : ((a[col] < b[col]) ? -1 : 0)
+                    } else {
+                        return (b[col] > a[col]) ? 1: ((b[col] < a[col]) ? -1: 0)
+                    }
+                })
             }
             // function uniq(a, param){
             //     return a.filter(function(item, pos, array){

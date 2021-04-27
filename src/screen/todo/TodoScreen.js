@@ -5,9 +5,13 @@ import { COLORS } from '../../common/elements/theme'
 import {  deleteTodo } from '../../state/todo/todoActions'
 import TodoList from './components/TodoList'
 import { NAVIGATION_FOODLIST, NAVIGATION_SEARCH } from '../../navigation/routes';
+import Tab from './components/Tab'
+import { useState } from 'react/cjs/react.development'
+import GasList from './components/GasList'
 
 const TodoScreen = ({ todo_list, deleteTodo, navigation }) => {
 
+    const [filter, setFilter] = useState("휴게소");
     const navigationToFoodList = (params) => {
         navigation.navigate(NAVIGATION_FOODLIST, params)
     }
@@ -18,7 +22,10 @@ const TodoScreen = ({ todo_list, deleteTodo, navigation }) => {
 
     return ( 
         <SafeAreaView style={{flex : 1, backgroundColor: COLORS.white}}>
-            <TodoList todo_list={todo_list} onNavi={navigationToFoodList} handleDeleteTodo={handleDeleteTodo} />
+            <Tab setFilter={setFilter}/>
+            {filter == "휴게소" && <TodoList todo_list={todo_list} onNavi={navigationToFoodList} handleDeleteTodo={handleDeleteTodo} />}
+            {filter == "주유소" && <GasList todo_list={todo_list} onNavi={navigationToFoodList} handleDeleteTodo={handleDeleteTodo} />}
+            
         </SafeAreaView>
     )
 }

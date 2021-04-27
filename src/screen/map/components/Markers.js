@@ -1,10 +1,11 @@
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Marker, Callout } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 import { Animated, StyleSheet } from 'react-native'
 import { Block, Text, Icon } from '../../../common/elements'
 import images from '../../../constants/images';
 import lib from '../../../lib';
+import { COLORS } from '../../../common/elements/theme';
 const { helper } = lib;
 
 const styles = StyleSheet.create({
@@ -51,14 +52,15 @@ function Markers ({ data, onMarkerPress, myLocation }) {
                             resizeMode="cover"
                         />
                     </Animated.View>
-                    <Callout onPress={() => onMarkerPress(item.stdRestCd)}>
+                    <Callout onPress={() => onMarkerPress(item)}>
                         <Block width={160}>
                             <Text style={styles.calloutTitle}>{item.unitName}</Text>
                             <Text style={styles.calloutDescription}>{
                                 item.routeName + "\n"
                                 + helper.getDistance(myLocation, item) + "KM" + "\n"
-                                + "상세보기"} 
+                                } 
                             </Text>
+                            <Text color={COLORS.skyblue}>상세보기</Text>
                         </Block>
                     </Callout>
                 </>

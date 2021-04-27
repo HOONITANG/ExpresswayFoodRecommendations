@@ -29,7 +29,7 @@ const StackNavigator = () => {
             <Stack.Screen 
                 name={NAVIGATION_INIT}
                 component={BottomTabNavigator}
-                options={{ title: "RestArea" }}
+                options={{ title: "휴고" }}
             />
             <Stack.Screen 
                 name={NAVIGATION_FOODLIST}

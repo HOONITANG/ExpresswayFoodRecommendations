@@ -1,85 +1,82 @@
 import React, { useState, useEffect } from 'react'
 import { View, TouchableOpacity, FlatList, StyleSheet, Image, Platform, PermissionsAndroid, Alert } from 'react-native'
 import Geolocation from 'react-native-geolocation-service';
-import { useRestArea } from '../../../api/apiHandler';
+import { useRestGas } from '../../../api/apiHandler';
 import { Block, Text, Icon } from '../../../common/elements'
-import { COLORS } from '../../../common/elements/theme';
+import { COLORS, FONTS } from '../../../common/elements/theme';
 import lib from '../../../lib';
+import GasSortButton from './GasSortButton';
 
 const { helper } = lib;
 
-export default function RestLocations({ onNavi, routeNo, addTodo }) {
+export default function GasList({ routeNo, addTodo }) {
 
-    const [myLocation, setLocation] = useState();
-    const { status, data } = useRestArea(routeNo);
+    const [orderIdx, setOrderIdx] = useState(-1);
+    const { status, data } = useRestGas(routeNo);
+    //React.useMemo( helper.sortArr(data.list, 'gasolinePrice', true) , [data])
 
-    async function requestPermission() {
-        try {
-            // iOS 위치 정보 수집 권한 요청
-            if (Platform.OS === "ios") {
-                return await Geolocation.requestAuthorization("always");
-            }
-            // 안드로이드 위치 정보 수집 권한 요청 
-            if (Platform.OS === "android") { 
-                return await PermissionsAndroid.request( 
-                    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, 
-                ); 
-            }
-        } catch (e) {
-            console.log(e)
-        }
-    }
+    const gasNameArr = [
+        {
+            name: '휘발유',
+            col: 'gasolinePrice'
+        },
+        {
+            name: '경유',
+            col: 'diselPrice'
+        },
+        {
+            name: 'LPG',
+            col: 'lpgPrice'
+        } 
+    ]
+
+    const filteredByPrice = (col, index) =>  { 
+        helper.sortArr(data.list, col, true) 
+        setOrderIdx(index);
+    };
+   
 
     const handleAddTodo = (task) => {
         // console.log(task);
-        task.gas = "N";
-        task.rest = "Y";
-        Alert.alert("즐겨찾기에 등록되었습니다. ")
+        Alert.alert("즐겨찾기에 등록되었습니다. ");
+        task.gas = "Y";
+        task.rest = "N";
         addTodo(task)
     }
 
-    useEffect(() => { 
-        requestPermission().then(result => { 
-            if (result === "granted") { 
-                Geolocation.getCurrentPosition( 
-                    pos => { 
-                        setLocation(pos.coords);
-                    }, error => { 
-                        console.log(error); 
-                    }, 
-                    { 
-                        enableHighAccuracy: true, 
-                        timeout: 3600, 
-                        maximumAge: 3600, 
-                    }, 
-                ); 
-            } 
-        }); 
-    }, [routeNo]);
 
     if (status === "loading") return <Text>Loading...</Text>;
     if (status === "error") return <Text>Error :(</Text>;
 
-    if(!myLocation) {
-        return (
-            <View>
-                <Text>위치정보를 읽어오지 못했습니다. :(</Text>
-            </View>
-        )
-    }
     return (
         <View style={styles.container}>
-            <Text titleHeavy marginVertical={16}> 휴게소 목록 </Text>
-            {data.length == 0 && <Text headLineHeavy center>고속도로 노선 검색을 해주세요...</Text>}
+            <Block marginTop={8}>
+                <Text subHeaderHeavy color={COLORS.color_gray_600}>GAS 가격순</Text>
+                <Block row marginTop={8}>
+                    {gasNameArr.map((item, index) => {
+                        const select = index == orderIdx;
+                        return (
+                            <GasSortButton 
+                                key={index.toString()}
+                                onPress={() => filteredByPrice(item.col, index)} 
+                                selectBgColor={COLORS.color_primary_100}
+                                selectTextColor={COLORS.color_primary_700}
+                                select={select}
+                                text={item.name}
+                            />
+                         )
+                    })}
+                </Block>
+            </Block>
             <FlatList
-                data={data}
+                data={data.list}
                 renderItem={({ item, index }) => (
-                    <TouchableOpacity key={item.unitCode} onPress={() => onNavi(item)}>
+                    <TouchableOpacity>
                         <View style={styles.cardView}>
                             {/* <Image style={styles.cardViewImage} source={{uri: "https://via.placeholder.com/80"}} /> */}
                             <View style={styles.cardTextView}>
                                 <View style={[styles.row,{ marginBottom: 8, alignItems: 'center', justifyContent: 'space-between'}]}>
-                                    <Text subHeaderHeavy>{item.unitName}</Text>
+                                    <Text subHeaderHeavy>{item.serviceAreaName}</Text>
                                     <TouchableOpacity onPress={() =>handleAddTodo(item)}>
                                         <Block 
                                             center 
@@ -93,12 +90,11 @@ export default function RestLocations({ onNavi, routeNo, addTodo }) {
                                         </Block>
                                     </TouchableOpacity>
                                 </View>
-                                {item.tvShow == 'Y' && <Text>#맛비네이션 TV 방송 </Text>}
                                 <View style={[styles.row,{ alignItems: 'center', justifyContent: 'space-between'}]}>
-                                    <Text color={COLORS.color_gray_700} style={styles.textMargin}>대표음식: {item.batchMenu}</Text> 
-                                    <Text primary>{helper.getDistance(myLocation, item)}KM</Text>
+                                    <Text color={COLORS.color_gray_700} style={[styles.textMargin, orderIdx == 0? { ...FONTS.titleHeavy, color: COLORS.primary } : null ]} > 휘발유: {item.gasolinePrice}</Text> 
+                                    <Text color={COLORS.color_gray_700} style={[styles.textMargin, orderIdx == 1? { ...FONTS.titleHeavy, color: COLORS.primary } : null]} >경유: {item.diselPrice}</Text> 
+                                    <Text color={COLORS.color_gray_700} style={[styles.textMargin, orderIdx == 2? { ...FONTS.titleHeavy, color: COLORS.primary } : null]} >LPG: {item.lpgPrice}</Text> 
                                 </View>
-                                
                             </View>
                         </View>
                     </TouchableOpacity>

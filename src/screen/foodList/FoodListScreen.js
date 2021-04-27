@@ -7,6 +7,8 @@ import { useFoods } from '../../api/apiHandler';
 import { COLORS } from '../../common/elements/theme';
 import { useState } from 'react/cjs/react.development';
 import lib from '../../lib';
+import FoodItemCard from './components/FoodItemCard';
+
 
 const { price } = lib;
 const { width, height } = Dimensions.get("window");
@@ -30,6 +32,8 @@ function FoodListScreen ({ navigation, route, addTodo }) {
     const [currentInfoIndex, setCurrentInfoIndex] = useState(null);
 
     const handleAddFavorite = () => {
+        params.gas = "N";
+        params.rest = "Y";
         addTodo(params);
         Alert.alert("즐겨찾기에 등록되었습니다. ")
     }
@@ -79,8 +83,8 @@ function FoodListScreen ({ navigation, route, addTodo }) {
                 data={data?.pages.flat()}
                 renderItem={({ item }) => (
                     item.list.map( (food, findex) => (
-                        <Block shadow style={styles.cardView} key={food.seq}>
-                            <Block style={styles.cardHeaderColor}/>
+                        <FoodItemCard item={food} key={food.seq}/>
+                            /* <Block style={styles.cardHeaderColor}/>
                             <Block style={styles.cardViewSection}>
                                 <Text headLineHeavy marginBottom={8}>{food.foodNm}</Text>
                                 <Text titleHeavy marginBottom={8} color={COLORS.color_gray_700}>{price.comma(food.foodCost)}원</Text>
@@ -112,8 +116,7 @@ function FoodListScreen ({ navigation, route, addTodo }) {
                                     <Text bodyHeavy>재료: </Text>
                                     <Text>{food.foodMaterial}</Text>
                                 </Block>
-                            )}
-                        </Block>
+                            )} */
                     ))
                 )}
                 onEndReached={ hasNextPage ? fetchNextPage : ()=>{}}
