@@ -9,7 +9,7 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'; // remove 
 import FoodTag from './FoodTag';
 const { price } = lib;
 
-export default function FoodItemCard({ item }) {
+function FoodItemCard({ item }) {
     return (
         <Block card style={styles.cardView} shadow>
             {/* Title */}
@@ -29,7 +29,7 @@ export default function FoodItemCard({ item }) {
                 {item.tvShow === 'Y' && <FoodTag imageSource={images.tv} text='TV '/>}
             </Block>
             {/* FoodInfo */}
-            <Block  style={styles.foodInfo} marginTop={16}>
+            <Block  marginTop={16}>
                 <Block marginHorizontal={20} paddingVertical={16}>
                     <Text subHeaderHeavy marginVertical={4}>Detail</Text>
                     <Text>{item.etc}</Text>
@@ -63,3 +63,5 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.color_gray_400
     }
 })
+
+export default React.memo(FoodItemCard);

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { View, TouchableOpacity, FlatList, StyleSheet, Image, Platform, PermissionsAndroid, Alert } from 'react-native'
 import Geolocation from 'react-native-geolocation-service';
 import { useRestArea } from '../../../api/apiHandler';
 import { Block, Text, Icon } from '../../../common/elements'
 import { COLORS } from '../../../common/elements/theme';
 import lib from '../../../lib';
+import RestItem from './RestItem';
 
 const { helper } = lib;
 
@@ -30,13 +31,13 @@ export default function RestLocations({ onNavi, routeNo, addTodo }) {
         }
     }
 
-    const handleAddTodo = (task) => {
+    const handleAddTodo = useCallback((task) => {
         // console.log(task);
         task.gas = "N";
         task.rest = "Y";
         Alert.alert("즐겨찾기에 등록되었습니다. ")
         addTodo(task)
-    }
+    }, [])
 
     useEffect(() => { 
         requestPermission().then(result => { 
@@ -73,35 +74,9 @@ export default function RestLocations({ onNavi, routeNo, addTodo }) {
             {data.length == 0 && <Text headLineHeavy center>고속도로 노선 검색을 해주세요...</Text>}
             <FlatList
                 data={data}
+                disableVirtualization={false}
                 renderItem={({ item, index }) => (
-                    <TouchableOpacity key={item.unitCode} onPress={() => onNavi(item)}>
-                        <View style={styles.cardView}>
-                            {/* <Image style={styles.cardViewImage} source={{uri: "https://via.placeholder.com/80"}} /> */}
-                            <View style={styles.cardTextView}>
-                                <View style={[styles.row,{ marginBottom: 8, alignItems: 'center', justifyContent: 'space-between'}]}>
-                                    <Text subHeaderHeavy>{item.unitName}</Text>
-                                    <TouchableOpacity onPress={() =>handleAddTodo(item)}>
-                                        <Block 
-                                            center 
-                                            middle 
-                                            padding={12} 
-                                            borderRadius={4} borderWidth={0.5} 
-                                            borderColor={COLORS.skyblue} 
-                                            backgroundColor={COLORS.skyblue}
-                                        >
-                                            <Icon type="fontisto" name="favorite" color={COLORS.white} size={18}/>
-                                        </Block>
-                                    </TouchableOpacity>
-                                </View>
-                                {item.tvShow == 'Y' && <Text>#맛비네이션 TV 방송 </Text>}
-                                <View style={[styles.row,{ alignItems: 'center', justifyContent: 'space-between'}]}>
-                                    <Text color={COLORS.color_gray_700} style={styles.textMargin}>대표음식: {item.batchMenu}</Text> 
-                                    <Text primary>{helper.getDistance(myLocation, item)}KM</Text>
-                                </View>
-                                
-                            </View>
-                        </View>
-                    </TouchableOpacity>
+                   <RestItem onNavi={onNavi} item={item} myLocation={myLocation} handleAddTodo={handleAddTodo}/>
                 )}
                 keyExtractor={(item,index) => index.toString()}
             />

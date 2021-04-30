@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { View, TouchableOpacity, FlatList, StyleSheet, Image, Platform, PermissionsAndroid, Alert } from 'react-native'
 import Geolocation from 'react-native-geolocation-service';
 import { useRestGas } from '../../../api/apiHandler';
 import { Block, Text, Icon } from '../../../common/elements'
 import { COLORS, FONTS } from '../../../common/elements/theme';
 import lib from '../../../lib';
+import GasItem from './GasItem';
 import GasSortButton from './GasSortButton';
 
 const { helper } = lib;
@@ -36,13 +37,13 @@ export default function GasList({ routeNo, addTodo }) {
     };
    
 
-    const handleAddTodo = (task) => {
+    const handleAddTodo = useCallback((task) => {
         // console.log(task);
         Alert.alert("즐겨찾기에 등록되었습니다. ");
         task.gas = "Y";
         task.rest = "N";
         addTodo(task)
-    }
+    },[])
 
 
     if (status === "loading") return <Text>Loading...</Text>;
@@ -70,34 +71,9 @@ export default function GasList({ routeNo, addTodo }) {
             </Block>
             <FlatList
                 data={data.list}
+                disableVirtualization={false}
                 renderItem={({ item, index }) => (
-                    <TouchableOpacity>
-                        <View style={styles.cardView}>
-                            {/* <Image style={styles.cardViewImage} source={{uri: "https://via.placeholder.com/80"}} /> */}
-                            <View style={styles.cardTextView}>
-                                <View style={[styles.row,{ marginBottom: 8, alignItems: 'center', justifyContent: 'space-between'}]}>
-                                    <Text subHeaderHeavy>{item.serviceAreaName}</Text>
-                                    <TouchableOpacity onPress={() =>handleAddTodo(item)}>
-                                        <Block 
-                                            center 
-                                            middle 
-                                            padding={12} 
-                                            borderRadius={4} borderWidth={0.5} 
-                                            borderColor={COLORS.skyblue} 
-                                            backgroundColor={COLORS.skyblue}
-                                        >
-                                            <Icon type="fontisto" name="favorite" color={COLORS.white} size={18}/>
-                                        </Block>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={[styles.row,{ alignItems: 'center', justifyContent: 'space-between'}]}>
-                                    <Text color={COLORS.color_gray_700} style={[styles.textMargin, orderIdx == 0? { ...FONTS.titleHeavy, color: COLORS.primary } : null ]} > 휘발유: {item.gasolinePrice}</Text> 
-                                    <Text color={COLORS.color_gray_700} style={[styles.textMargin, orderIdx == 1? { ...FONTS.titleHeavy, color: COLORS.primary } : null]} >경유: {item.diselPrice}</Text> 
-                                    <Text color={COLORS.color_gray_700} style={[styles.textMargin, orderIdx == 2? { ...FONTS.titleHeavy, color: COLORS.primary } : null]} >LPG: {item.lpgPrice}</Text> 
-                                </View>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
+                    <GasItem item={item} orderIdx={orderIdx} handleAddTodo={handleAddTodo}/>
                 )}
                 keyExtractor={(item,index) => index.toString()}
             />

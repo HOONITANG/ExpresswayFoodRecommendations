@@ -44,7 +44,7 @@ function MapScreen ({ navigation }) {
         <Block flex>
             <Header openModal={openModal} placeholder={placeholder} />
             <MapView data={data} mapRef={mapRef} myLocation={myLocation} >
-                <MyMarker myLocation={myLocation} mapRef={mapRef}/>
+                <MyMarker myLocation={myLocation}/>
                 <Markers data={data} onMarkerPress={onMarkerPress} myLocation={myLocation} />
             </MapView>
             <GpsButton handleGpsClick={handleGpsClick}/>

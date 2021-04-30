@@ -84,39 +84,6 @@ function FoodListScreen ({ navigation, route, addTodo }) {
                 renderItem={({ item }) => (
                     item.list.map( (food, findex) => (
                         <FoodItemCard item={food} key={food.seq}/>
-                            /* <Block style={styles.cardHeaderColor}/>
-                            <Block style={styles.cardViewSection}>
-                                <Text headLineHeavy marginBottom={8}>{food.foodNm}</Text>
-                                <Text titleHeavy marginBottom={8} color={COLORS.color_gray_700}>{price.comma(food.foodCost)}원</Text>
-                                <Text>{food.lsttmAltrDttm}</Text>
-                            </Block>
-                            <Block style={styles.cardAddInfo}>
-                                {
-                                    initialState.categories.map((item, index) => {
-                                        return (
-                                            <TouchableOpacity key={index} onPress={() => item.onPress(findex, index)}>
-                                                <View style={[styles.iconView, 
-                                                        (index==0 && food.bestfoodyn == 'Y') ||
-                                                        (index==1 && food.premiumyn == 'Y') ||
-                                                        (index==2 && food.recommendyn == 'Y') ||
-                                                        (index==3 && food.tvShow == 'Y') ||
-                                                        (findex === currentIndex && index == currentInfoIndex) ? styles.iconBackground : ""]}>
-                                                    {item.icon}
-                                                    <Text style={styles.iconText}>{item.name}</Text>
-                                                </View>
-                                            </TouchableOpacity>
-                                        )
-                                    })
-                                }
-                            </Block>
-                            {findex === currentIndex && (
-                                <Block padding={16}>
-                                    <Text bodyHeavy>설명: </Text>
-                                    <Text>{food.etc}{"\n"}</Text>
-                                    <Text bodyHeavy>재료: </Text>
-                                    <Text>{food.foodMaterial}</Text>
-                                </Block>
-                            )} */
                     ))
                 )}
                 onEndReached={ hasNextPage ? fetchNextPage : ()=>{}}

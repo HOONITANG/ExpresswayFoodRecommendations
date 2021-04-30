@@ -24,27 +24,29 @@ const BottomTabNavigator = ({ navigation }) => {
                 name={NAVIGATION_HOME}
                 component={TopTabNavigation}
                 options={{
-                tabBarIcon: ({ color, focused }) => (
-                        <Icon
-                        type="ionicon"
-                        name={focused ? 'home' : 'home-outline'}
-                        color={color}
-                        />
-                    ),
-                }}
+                    title: "List",
+                    tabBarIcon: ({ color, focused }) => (
+                            <Icon
+                            type="ionicon"
+                            name={focused ? 'list' : 'list-outline'}
+                            color={color}
+                            />
+                        ),
+                    }}
             />
             <Tab.Screen
                 name={NAVIGATION_TODO}
                 component={TodoScreen}
                 options={{
-                tabBarIcon: ({ color, focused }) => (
-                        <Icon
-                        type="fontisto"
-                        name="favorite"
-                        color={color}
-                        />
-                    ),
-                }}
+                    title: "Favorite",
+                    tabBarIcon: ({ color, focused }) => (
+                            <Icon
+                            type="fontisto"
+                            name="favorite"
+                            color={color}
+                            />
+                        ),
+                    }}
                 // listeners={{
                 //     tabPress: e => {
                 //         if (false) {
@@ -60,6 +62,7 @@ const BottomTabNavigator = ({ navigation }) => {
                 name={NAVIGATION_MAP}
                 component={MapScreen}
                 options={{
+                    title: "Map",
                     tabBarIcon: ({ color, focused }) => (
                         <Icon 
                             type="feather"

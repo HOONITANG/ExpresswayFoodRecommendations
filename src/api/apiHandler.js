@@ -32,12 +32,14 @@ export const fetchRestLocations = async (routeNo) => {
 
 
 export const fetchAllRestLocations = async () => {
+    
     const url = `https://data.ex.co.kr/openapi/locationinfo/locationinfoRest?key=${apiKey}&type=json&numOfRows=100`
     let result = [];
     const pages = ['1','2','3','4'];
     // page 크기 만큼 네트워크 fetch을 진행 한 후 데이터를 병합함.
     const data = await Promise.all(
-        pages.map( i => { return fetch(url+`&pageNo=${i}`).then((result) => result.json()); })
+        pages.map( i => { 
+            return fetch(url+`&pageNo=${i}`).then((result) => result.json()); })
     );
     // 리스트 데이터만 따로 추출해서 병합함.
     data.map((i) => {
@@ -54,7 +56,7 @@ export const fetchRoutes = async ({ pageParam = 1 }) => {
 }
 
 export const fetchRepresentFoods = async (routeNo) => {
-    
+   
     const url = `https://data.ex.co.kr/openapi/business/representFoodServiceArea?key=${apiKey}&type=json&routeCode=${routeNo}&numOfRows=100&pageNo=1`;
     const data = await fetch(url).then((result) => result.json());
     return data;
@@ -78,7 +80,9 @@ export const fetchRestGasByIds = async (arr) => {
     let result = [];
     const url = `https://data.ex.co.kr/openapi/business/curStateStation?key=${apiKey}&type=json&numOfRows=10&pageNo=1`;
     const data = await Promise.all(
-        farr.map( i => { return fetch(url+`&serviceAreaCode=${i.serviceAreaCode}`).then((result) => result.json()); })
+        farr.map( i => { 
+            return fetch(url+`&serviceAreaCode=${i.serviceAreaCode}`).then((result) => result.json()); 
+        })
     );
     data.map((i) => {
         result = result.concat(i.list);
@@ -88,7 +92,6 @@ export const fetchRestGasByIds = async (arr) => {
 };
 
 export const fetchRestArea = async (routeNo) => {
-
     const location = await fetchRestLocations(routeNo);
     const url = `https://data.ex.co.kr/openapi/business/representFoodServiceArea?key=${apiKey}&type=json&routeCode=${routeNo}&numOfRows=100&pageNo=1`;
    
