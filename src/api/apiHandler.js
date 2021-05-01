@@ -87,7 +87,6 @@ export const fetchRestGasByIds = async (arr) => {
     data.map((i) => {
         result = result.concat(i.list);
     })
-
     return result;
 };
 

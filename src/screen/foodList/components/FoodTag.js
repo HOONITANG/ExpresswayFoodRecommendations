@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Image, StyleSheet } from 'react-native'
 import { Block, Text } from '../../../common/elements'
 import { COLORS } from '../../../common/elements/theme'
@@ -11,24 +11,6 @@ export default function FoodTag({imageSource, text}) {
                 <Text bodyHeavy>{text}</Text>
             </Block>
         </Block>
-        // <Block style={styles.foodTagView} card >
-        //     <Image source={images.flame} style={{ width: 25, height: 25 }}/>
-        //     <Block center middle marginLeft={4}>
-        //         <Text bodyHeavy>프리미엄</Text>
-        //     </Block>
-        // </Block>
-        // <Block style={styles.foodTagView} card >
-        //     <Image source={images.recommend} style={{ width: 25, height: 25 }}/>
-        //     <Block center middle marginLeft={4}>
-        //         <Text bodyHeavy>추천</Text>
-        //     </Block>
-        // </Block>
-        // <Block style={styles.foodTagView} card >
-        //     <Image source={images.tv} style={{ width: 25, height: 25 }}/>
-        //     <Block center middle marginLeft={4}>
-        //         <Text bodyHeavy>TV</Text>
-        //     </Block>
-        // </Block>
     )
 }
 

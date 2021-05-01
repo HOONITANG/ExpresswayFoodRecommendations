@@ -5,7 +5,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
     FoodListScreen,
     HomeScreen,
-    MapScreen,
     SearchScreen
 } from '../screen';
 
@@ -14,7 +13,7 @@ import {
     NAVIGATION_HOME,
     NAVIGATION_MAP,
     NAVIGATION_FOODLIST,
-    NAVIGATION_SEARCH
+    NAVIGATION_SEARCH,
 } from './routes';
 
 import BottomTabNavigator from './BottomTabNavigator';
@@ -34,11 +33,16 @@ const StackNavigator = () => {
             <Stack.Screen 
                 name={NAVIGATION_FOODLIST}
                 component={FoodListScreen}
+                options={{ title: "음식 리스트"}}
             />
             <Stack.Screen 
                 name={NAVIGATION_SEARCH}
                 component={SearchScreen}
             />
+            {/* <Stack.Screen 
+                name={NAVIGATION_HOME} 
+                component={HomeScreen} 
+            /> */}
             
         </Stack.Navigator>
     )

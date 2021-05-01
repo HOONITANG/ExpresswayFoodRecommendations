@@ -38,6 +38,7 @@ function MyMarker ({ myLocation }) {
                 latitude: parseFloat(myLocation.latitude),
                 longitude: parseFloat(myLocation.longitude),
             }}
+            tracksViewChanges={false}
         >
             <Animated.View style={styles.markerWrap}>
                 <Animated.Image
@@ -50,4 +51,4 @@ function MyMarker ({ myLocation }) {
     )
 }
 
-export default MyMarker;
+export default React.memo(MyMarker);

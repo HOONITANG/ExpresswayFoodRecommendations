@@ -3,17 +3,16 @@ import { View, TouchableOpacity, FlatList, StyleSheet, Image, Platform, Permissi
 import { Block, Text, Icon } from '../../../common/elements'
 import { COLORS } from '../../../common/elements/theme';
 
-export default function Tab({ setFilter }) {
-    const [ activeIndex, setActiveIndex ] = useState(0);
-    const filter = ['휴게소', '주유소'];
-    const onPress = ( item, index ) => {
-        setActiveIndex(index);
-        setFilter( item )
+export default function Tab({ tabArr, tabIndex, setTabIndex }) {
+    // const [ activeIndex, setActiveIndex ] = useState(0);
+    
+    const onPress = (item, index) => {
+        setTabIndex(index)
     }
     return (
         <Block row>
-            {filter.map((item, index) => {
-                const activeColor = index == activeIndex ? COLORS.primary : COLORS.gray;
+            {tabArr.map((item, index) => {
+                const activeColor = index == tabIndex ? COLORS.primary : COLORS.gray;
                 return (
                     <TouchableOpacity key={index.toString()} onPress={() => onPress(item, index)} style={styles.tabButtonWrap}>
                         <Block style={[styles.tabButton, {borderColor: activeColor } ]}>

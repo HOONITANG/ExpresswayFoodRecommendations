@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { View, TouchableOpacity, FlatList, StyleSheet, Image, Platform, PermissionsAndroid, Alert } from 'react-native'
-import { useRestGas } from '../../../api/apiHandler';
 import { Block, Text, Icon } from '../../../common/elements'
 import { images } from '../../../constants';
 import { COLORS } from '../../../common/elements/theme';
 import lib from '../../../lib';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 import FoodTag from './FoodTag';
 const { price } = lib;
 
 function FoodItemCard({ item }) {
     return (
         <Block card style={styles.cardView} shadow>
+            <Block color={COLORS.primary} height={8}/>
             {/* Title */}
             <Block row marginVertical={16} marginHorizontal={20} >
                 <Block flex={7}>
@@ -23,10 +22,10 @@ function FoodItemCard({ item }) {
             </Block>
             {/* FoodTag */}
             <Block row left marginHorizontal={20}>
-                {item.bestfoodyn === 'Y' && <FoodTag imageSource={images.star} text='Best'/>}
-                {item.premiumyn === 'Y' && <FoodTag imageSource={images.flame} text='프리미엄'/>}
-                {item.recommendyn === 'Y' &&  <FoodTag imageSource={images.recommend} text='추천'/>}
-                {item.tvShow === 'Y' && <FoodTag imageSource={images.tv} text='TV '/>}
+                {item.bestfoodyn == 'Y' ? (<FoodTag imageSource={images.star} text='Best'/>): null}
+                {item.premiumyn == 'Y'  ? (<FoodTag imageSource={images.flame} text='프리미엄'/>) : null}
+                {item.recommendyn == 'Y'  ?  (<FoodTag imageSource={images.recommend} text='추천'/>) : null }
+                {item.tvShow == 'Y'  ? (<FoodTag imageSource={images.tv} text='TV '/>) : null }
             </Block>
             {/* FoodInfo */}
             <Block  marginTop={16}>
@@ -44,6 +43,7 @@ function FoodItemCard({ item }) {
 const styles = StyleSheet.create({
     cardView: {
         flex: 1,
+        marginHorizontal: 20,
         backgroundColor: 'white',
         marginVertical: 16,
         borderBottomWidth: 0.5,

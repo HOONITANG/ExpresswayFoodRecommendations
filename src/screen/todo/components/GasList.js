@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, TouchableOpacity, FlatList, StyleSheet, Image, Platform, PermissionsAndroid } from 'react-native'
+import { View, TouchableOpacity, FlatList, StyleSheet,  } from 'react-native'
 import { useRestGasByIds } from '../../../api/apiHandler';
 import { Block, Text, Icon } from '../../../common/elements'
 import { COLORS, FONTS } from '../../../common/elements/theme';
@@ -32,6 +32,7 @@ export default function GasList({ todo_list, handleDeleteTodo }) {
     
     if (status === "loading") return <Text>Loading...</Text>;
     if (status === "error") return <Text>Error :(</Text>;
+    if (data.length == 0) return <Text> 즐겨찾기 데이터가 없습니다. </Text>
 
     const renderGasList = () => {
         const renderGas = ({ item, index }) =>  (
@@ -52,9 +53,9 @@ export default function GasList({ todo_list, handleDeleteTodo }) {
                         </View>
                   
                         <View style={[styles.row,{ alignItems: 'center', justifyContent: 'space-between'}]}>
-                            <Text color={COLORS.color_gray_700} style={[styles.textMargin, orderIdx == 0? { ...FONTS.titleHeavy, color: COLORS.primary } : null ]} > 휘발유: {item.gasolinePrice}</Text> 
-                            <Text color={COLORS.color_gray_700} style={[styles.textMargin, orderIdx == 1? { ...FONTS.titleHeavy, color: COLORS.primary } : null]} >경유: {item.diselPrice}</Text> 
-                            <Text color={COLORS.color_gray_700} style={[styles.textMargin, orderIdx == 2? { ...FONTS.titleHeavy, color: COLORS.primary } : null]} >LPG: {item.lpgPrice}</Text> 
+                            <Text color={COLORS.color_gray_700} style={[styles.textMargin, orderIdx == 0? { ...FONTS.titleHeavy, color: COLORS.primary } : {} ]} > 휘발유: {item.gasolinePrice}</Text> 
+                            <Text color={COLORS.color_gray_700} style={[styles.textMargin, orderIdx == 1? { ...FONTS.titleHeavy, color: COLORS.primary } : {} ]} >경유: {item.diselPrice}</Text> 
+                            <Text color={COLORS.color_gray_700} style={[styles.textMargin, orderIdx == 2? { ...FONTS.titleHeavy, color: COLORS.primary } : {} ]} >LPG: {item.lpgPrice}</Text> 
                         </View>
                     </View>
                 </View>
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },  
     textMargin: {
-        marginRight: 16,
+        marginRight: 4,
     },
     cardView: {
         flexDirection: 'row',

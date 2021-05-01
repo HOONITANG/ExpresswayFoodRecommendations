@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Block, Text } from '../../common/elements';
 import { useRestArea } from '../../api/apiHandler';
 import useModal from '../hook/useModal';
@@ -19,9 +19,9 @@ function MapScreen ({ navigation }) {
         navigation.navigate(NAVIGATION_FOODLIST, params)
     }
 
-    const onMarkerPress = (item) => {
+    const onMarkerPress = useCallback((item) => {
         navigationToFoodList(item)
-    }
+    }, [])
 
     const handleGpsClick = () => {
         moveLocation(setLocation, mapRef);
@@ -34,17 +34,17 @@ function MapScreen ({ navigation }) {
     if ( status == "loading" ) return <Text>Loading...</Text>;
     if ( status == "error" ) return <Text>error...</Text>;
 
-    if(!myLocation) {
-        <Block>
-            <Text>위치 정보를 불러오고 있습니다.</Text>
-        </Block>
-    }
+    // if(!myLocation) {
+    //     <Block>
+    //         <Text>위치 정보를 불러오고 있습니다.</Text>
+    //     </Block>
+    // }
     
     return (
         <Block flex>
             <Header openModal={openModal} placeholder={placeholder} />
-            <MapView data={data} mapRef={mapRef} myLocation={myLocation} >
-                <MyMarker myLocation={myLocation}/>
+            <MapView data={data} mapRef={mapRef} >
+                { myLocation && (<MyMarker myLocation={myLocation}/>)}
                 <Markers data={data} onMarkerPress={onMarkerPress} myLocation={myLocation} />
             </MapView>
             <GpsButton handleGpsClick={handleGpsClick}/>

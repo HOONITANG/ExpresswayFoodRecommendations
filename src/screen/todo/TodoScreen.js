@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { SafeAreaView } from 'react-native'
 import { connect } from 'react-redux'
 import { COLORS } from '../../common/elements/theme'
@@ -6,7 +6,6 @@ import {  deleteTodo } from '../../state/todo/todoActions'
 import TodoList from './components/TodoList'
 import { NAVIGATION_FOODLIST, NAVIGATION_SEARCH } from '../../navigation/routes';
 import Tab from './components/Tab'
-import { useState } from 'react/cjs/react.development'
 import GasList from './components/GasList'
 
 const TodoScreen = ({ todo_list, deleteTodo, navigation }) => {
@@ -23,8 +22,8 @@ const TodoScreen = ({ todo_list, deleteTodo, navigation }) => {
     return ( 
         <SafeAreaView style={{flex : 1, backgroundColor: COLORS.white}}>
             <Tab setFilter={setFilter}/>
-            {filter == "휴게소" && <TodoList todo_list={todo_list} onNavi={navigationToFoodList} handleDeleteTodo={handleDeleteTodo} />}
-            {filter == "주유소" && <GasList todo_list={todo_list} onNavi={navigationToFoodList} handleDeleteTodo={handleDeleteTodo} />}
+            {filter == "휴게소" ? (<TodoList todo_list={todo_list} onNavi={navigationToFoodList} handleDeleteTodo={handleDeleteTodo} />) : <></>}
+            {filter == "주유소" ? (<GasList todo_list={todo_list} onNavi={navigationToFoodList} handleDeleteTodo={handleDeleteTodo} />) : <></>}
             
         </SafeAreaView>
     )

@@ -61,18 +61,19 @@ export default function RestLocations({ onNavi, routeNo, addTodo }) {
     if (status === "loading") return <Text>Loading...</Text>;
     if (status === "error") return <Text>Error :(</Text>;
 
-    if(!myLocation) {
-        return (
-            <View>
-                <Text>위치정보를 읽어오지 못했습니다. :(</Text>
-            </View>
-        )
-    }
+    // if(!myLocation) {
+    //     return (
+    //         <View>
+    //             <Text>위치정보를 읽어오지 못했습니다. :(</Text>
+    //         </View>
+    //     )
+    // }
     return (
         <View style={styles.container}>
-            <Text titleHeavy marginVertical={16}> 휴게소 목록 </Text>
-            {data.length == 0 && <Text headLineHeavy center>고속도로 노선 검색을 해주세요...</Text>}
+            {/* <Text titleHeavy marginVertical={16}> 휴게소 목록 </Text> */}
+            {data.length == 0 && (<Text headLineHeavy center>고속도로 노선 검색을 해주세요...</Text>)}
             <FlatList
+                showsVerticalScrollIndicator={false}
                 data={data}
                 disableVirtualization={false}
                 renderItem={({ item, index }) => (

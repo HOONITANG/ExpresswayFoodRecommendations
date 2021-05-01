@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { addTodo } from '../../state/todo/todoActions';
 import { useFoods } from '../../api/apiHandler';
 import { COLORS } from '../../common/elements/theme';
-import { useState } from 'react/cjs/react.development';
 import lib from '../../lib';
 import FoodItemCard from './components/FoodItemCard';
 
@@ -28,8 +27,6 @@ function FoodListScreen ({ navigation, route, addTodo }) {
         fetchPreviousPage,
         hasNextPage,
         hasPreviousPage } = useFoods(stdRestCd);
-    const [currentIndex, setCurrentIndex] = useState(null);
-    const [currentInfoIndex, setCurrentInfoIndex] = useState(null);
 
     const handleAddFavorite = () => {
         params.gas = "N";
@@ -63,20 +60,16 @@ function FoodListScreen ({ navigation, route, addTodo }) {
             {
                 name: '정보',
                 icon: <Icon type="antdesign"  name="infocirlce" style={styles.infoIcon} size={25} />,
-                onPress: (findex, index) => { 
-                    setCurrentIndex(findex === currentIndex ? null : findex)
-                    setCurrentInfoIndex(index);
-                }
             },
         ]
     }
 
     if (status === "loading") return <Text>Loading...</Text>;
     if (status === "error") return <Text>Error :(</Text>;
+    if (data?.pages.flat().length == 0) return <Text>음식리스트가 없습니다.</Text>
 
     return (
         <Block white>
-            <Text marginHorizontal={20} titleHeavy marginVertical={16}> 음식 리스트 </Text>
             <FlatList
                 showsVerticalScrollIndicator={false}
                 style={styles.flatListView}
@@ -89,7 +82,7 @@ function FoodListScreen ({ navigation, route, addTodo }) {
                 onEndReached={ hasNextPage ? fetchNextPage : ()=>{}}
                 keyExtractor={(item,index) => index.toString()}
             />
-            <TouchableOpacity style={{ position: 'absolute', right: 20, left: 20, bottom: 100, }} onPress={handleAddFavorite}>
+            <TouchableOpacity style={{ position: 'absolute', right: 20, left: 20, bottom: 40, }} onPress={handleAddFavorite}>
                 <Block 
                     center 
                     middle 
@@ -115,7 +108,7 @@ const styles = StyleSheet.create({
         marginVertical: 16,
     },
     flatListView: {
-        marginBottom: 140
+        marginBottom: 70
     },
     cardHeaderColor: {
         backgroundColor: COLORS.color_primary_300,

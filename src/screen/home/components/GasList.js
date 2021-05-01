@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { View, TouchableOpacity, FlatList, StyleSheet, Image, Platform, PermissionsAndroid, Alert } from 'react-native'
-import Geolocation from 'react-native-geolocation-service';
 import { useRestGas } from '../../../api/apiHandler';
 import { Block, Text, Icon } from '../../../common/elements'
 import { COLORS, FONTS } from '../../../common/elements/theme';
@@ -12,7 +11,7 @@ const { helper } = lib;
 
 export default function GasList({ routeNo, addTodo }) {
 
-    const [orderIdx, setOrderIdx] = useState(-1);
+    const [orderIdx, setOrderIdx] = useState(0);
     const { status, data } = useRestGas(routeNo);
     //React.useMemo( helper.sortArr(data.list, 'gasolinePrice', true) , [data])
 
@@ -30,6 +29,13 @@ export default function GasList({ routeNo, addTodo }) {
             col: 'lpgPrice'
         } 
     ]
+
+    useEffect(()=>{
+        if(data && orderIdx == 0) {
+            helper.sortArr(data.list, 'gasolinePrice', true)
+            setOrderIdx(0);
+        }
+    },[data])
 
     const filteredByPrice = (col, index) =>  { 
         helper.sortArr(data.list, col, true) 
@@ -70,6 +76,7 @@ export default function GasList({ routeNo, addTodo }) {
                 </Block>
             </Block>
             <FlatList
+                showsVerticalScrollIndicator={false}
                 data={data.list}
                 disableVirtualization={false}
                 renderItem={({ item, index }) => (

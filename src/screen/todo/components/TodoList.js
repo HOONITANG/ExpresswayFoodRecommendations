@@ -21,35 +21,36 @@ export default function TodoList({ todo_list, handleDeleteTodo, onNavi }) {
     //     // favorList = helper.findByIds(list, todo_list, 'serviceAreaCode');
     //     // console.log(favorList);
     // }
+    if (todo_list.length == 0) return <Text> 즐겨찾기 데이터가 없습니다. </Text>
 
     const renderTodoList = () => {
         const renderRest = ({ item, index }) => {
-            return item.rest == 'Y' && (
+            return  item.rest == 'Y' ? (
                 <TouchableOpacity key={item.unitCode} onPress={() => onNavi(item)}>
-                        <View style={styles.cardView}>
-                    {/* <Image style={styles.cardViewImage} source={{uri: "https://via.placeholder.com/80"}} /> */}
-                    <View style={styles.cardTextView}>
-                        <View style={[styles.row,{ marginBottom: 8, alignItems: 'center', justifyContent: 'space-between'}]}>
-                            <Text subHeaderHeavy>{item.unitName}</Text>
-                            <TouchableOpacity onPress={() =>handleDeleteTodo(item.serviceAreaCode)}>
-                                <Block 
-                                    center 
-                                    middle 
-                                    padding={16} 
-                                >
-                                    <Text color={COLORS.tertiary}>삭제</Text>
-                                </Block>
-                            </TouchableOpacity>
+                            <View style={styles.cardView}>
+                        {/* <Image style={styles.cardViewImage} source={{uri: "https://via.placeholder.com/80"}} /> */}
+                        <View style={styles.cardTextView}>
+                            <View style={[styles.row,{ marginBottom: 8, alignItems: 'center', justifyContent: 'space-between'}]}>
+                                <Text subHeaderHeavy>{item.unitName}</Text>
+                                <TouchableOpacity onPress={() =>handleDeleteTodo(item.serviceAreaCode)}>
+                                    <Block 
+                                        center 
+                                        middle 
+                                        padding={16} 
+                                    >
+                                        <Text color={COLORS.tertiary}>삭제</Text>
+                                    </Block>
+                                </TouchableOpacity>
+                            </View>
+                            {item.tvShow == 'Y' ? <Text>#맛비네이션 TV 방송 </Text> : <></>}
+                            <View style={[styles.row,{ alignItems: 'center', justifyContent: 'space-between'}]}>
+                                <Text color={COLORS.color_gray_700} style={styles.textMargin}>대표음식: {item.batchMenu}</Text> 
+                            </View>
                         </View>
-                        {item.tvShow == 'Y' && <Text>#맛비네이션 TV 방송 </Text>}
-                        <View style={[styles.row,{ alignItems: 'center', justifyContent: 'space-between'}]}>
-                            <Text color={COLORS.color_gray_700} style={styles.textMargin}>대표음식: {item.batchMenu}</Text> 
-                        </View>
-                        
                     </View>
-                </View>
-            </TouchableOpacity>
-            )
+                </TouchableOpacity>
+                ) : (<></>)
+                
         }
 
         return (

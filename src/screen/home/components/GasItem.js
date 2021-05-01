@@ -5,7 +5,7 @@ import { COLORS, FONTS } from '../../../common/elements/theme';
 
 function GasItem({ item, orderIdx, handleAddTodo }) {
     return (
-        <TouchableOpacity>
+        <Block>
             <View style={styles.cardView}>
                 {/* <Image style={styles.cardViewImage} source={{uri: "https://via.placeholder.com/80"}} /> */}
                 <View style={styles.cardTextView}>
@@ -31,7 +31,7 @@ function GasItem({ item, orderIdx, handleAddTodo }) {
                     </View>
                 </View>
             </View>
-        </TouchableOpacity>
+        </Block>
     )
 }
 
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },  
     textMargin: {
-        marginRight: 16,
+        marginRight: 4,
     },
     cardView: {
         flexDirection: 'row',

@@ -28,10 +28,10 @@ function RestItem({onNavi, handleAddTodo, item, myLocation}) {
                             </Block>
                         </TouchableOpacity>
                     </View>
-                    {item.tvShow == 'Y' && <Text>#맛비네이션 TV 방송 </Text>}
+                    {item.tvShow == 'Y' && (<Text>#맛비네이션 TV 방송 </Text>) }
                     <View style={[styles.row,{ alignItems: 'center', justifyContent: 'space-between'}]}>
                         <Text color={COLORS.color_gray_700} style={styles.textMargin}>대표음식: {item.batchMenu}</Text> 
-                        <Text primary>{helper.getDistance(myLocation, item)}KM</Text>
+                        { myLocation && <Text primary>{helper.getDistance(myLocation, item)}KM</Text> }
                     </View>
                     
                 </View>

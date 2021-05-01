@@ -22,7 +22,7 @@ const BottomTabNavigator = ({ navigation }) => {
         >
             <Tab.Screen
                 name={NAVIGATION_HOME}
-                component={TopTabNavigation}
+                component={HomeScreen}
                 options={{
                     title: "List",
                     tabBarIcon: ({ color, focused }) => (

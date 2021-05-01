@@ -30,9 +30,6 @@ const styles = StyleSheet.create({
 });
 
 function Markers ({ data, onMarkerPress, myLocation }) {
-    if(!myLocation) {
-        return <Block></Block>
-    }
     return data?.map((item,index) => {
         return (
             <Marker
@@ -43,6 +40,7 @@ function Markers ({ data, onMarkerPress, myLocation }) {
                 }}
                 //image={images.mapMarker}
                 isPreselected={true}
+                tracksViewChanges={false}
             >
                 <>
                     <Animated.View style={styles.markerWrap}>
@@ -55,11 +53,8 @@ function Markers ({ data, onMarkerPress, myLocation }) {
                     <Callout onPress={() => onMarkerPress(item)}>
                         <Block width={160}>
                             <Text style={styles.calloutTitle}>{item.unitName}</Text>
-                            <Text style={styles.calloutDescription}>{
-                                item.routeName + "\n"
-                                + helper.getDistance(myLocation, item) + "KM" + "\n"
-                                } 
-                            </Text>
+                            <Text style={styles.calloutDescription}>{ item.routeName } </Text>
+                            { myLocation && <Text style={styles.calloutDescription}>{ helper.getDistance(myLocation, item) + "KM" + "\n" } </Text>}
                             <Text color={COLORS.skyblue}>상세보기</Text>
                         </Block>
                     </Callout>
@@ -69,4 +64,4 @@ function Markers ({ data, onMarkerPress, myLocation }) {
     })
 }
 
-export default Markers;
+export default React.memo(Markers);

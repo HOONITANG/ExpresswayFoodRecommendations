@@ -6,9 +6,8 @@ function MapViewWrap ({ data, mapRef, children }) {
     return (
         <MapView
             ref={mapRef}  
-            provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+            //provider={PROVIDER_GOOGLE} // remove if not using Google Maps
             region={{
-                // 내위치로..
                 latitude:  parseFloat(data[0].yValue),
                 longitude:  parseFloat(data[0].xValue),
                 // 얼마의 위도경도 차이까지 지도에 표시되는가 크면 클수록 지도 화면의 높이가 높아짐.
