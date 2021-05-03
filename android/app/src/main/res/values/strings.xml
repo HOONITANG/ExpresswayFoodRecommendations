@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ez_start_react_native</string>
+    <string name="app_name">휴게소TV맛집</string>
     <string moduleConfig="true" name="CodePushDeploymentKey">d6wMufbZxCoaEZtbw4abfO_KVItgwx1CAcL2C</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>

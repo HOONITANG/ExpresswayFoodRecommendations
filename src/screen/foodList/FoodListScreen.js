@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, TouchableOpacity, FlatList, StyleSheet, Dimensions, Alert } from 'react-native'
 import { Block, Text, Icon } from '../../common/elements';
 import { connect } from 'react-redux';
@@ -7,7 +7,16 @@ import { useFoods } from '../../api/apiHandler';
 import { COLORS } from '../../common/elements/theme';
 import lib from '../../lib';
 import FoodItemCard from './components/FoodItemCard';
+import Banner from '../Banner';
+import { InterstitialAd, TestIds, AdEventType } from '@react-native-firebase/admob';
+import { checkTracker } from '../Banner'
+const adKey = Platform.OS == 'ios' ? 'ca-app-pub-2324283980956847/8207383576' : 'ca-app-pub-2324283980956847/6348696366';
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : adKey;
 
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+    requestNonPersonalizedAdsOnly: true,
+    keywords: ['trip', 'food'],
+});
 
 const { price } = lib;
 const { width, height } = Dimensions.get("window");
@@ -27,6 +36,43 @@ function FoodListScreen ({ navigation, route, addTodo }) {
         fetchPreviousPage,
         hasNextPage,
         hasPreviousPage } = useFoods(stdRestCd);
+
+    
+    useEffect(()=>{
+        const eventListener = interstitial.onAdEvent(type => {
+            if (type === AdEventType.LOADED) {
+                //setLoaded(true);
+            }
+            if (type === AdEventType.CLOSED) {
+                //console.log("ad closed");
+                //setLoaded(false);
+                
+                //reload ad 
+                interstitial.load();
+            }
+        });
+    
+            // Start loading the interstitial straight away
+        interstitial.load();
+    
+        // Unsubscribe from events on unmount
+        return () => {
+            eventListener();
+        };
+    }, [])
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            const showAd = () => {
+                if (interstitial.loaded) {
+                    interstitial.show().catch(error => console.warn(error));
+                }
+            } 
+            checkTracker(showAd,'',false);
+        });
+    
+        return unsubscribe;
+    }, [navigation]);
 
     const handleAddFavorite = () => {
         params.gas = "N";
@@ -66,10 +112,11 @@ function FoodListScreen ({ navigation, route, addTodo }) {
 
     if (status === "loading") return <Text>Loading...</Text>;
     if (status === "error") return <Text>Error :(</Text>;
-    if (data?.pages.flat().length == 0) return <Text>음식리스트가 없습니다.</Text>
-
+    if (data?.pages.flat()[0].list.length == 0) return <Block flex={1}><Text>음식리스트가 없습니다.</Text></Block>
+       
     return (
-        <Block white>
+        <Block white flex>
+            <Banner/>
             <FlatList
                 showsVerticalScrollIndicator={false}
                 style={styles.flatListView}

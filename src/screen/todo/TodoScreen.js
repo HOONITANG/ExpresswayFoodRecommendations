@@ -6,7 +6,8 @@ import {  deleteTodo } from '../../state/todo/todoActions'
 import TodoList from './components/TodoList'
 import { NAVIGATION_FOODLIST, NAVIGATION_SEARCH } from '../../navigation/routes';
 import Tab from './components/Tab'
-import GasList from './components/GasList'
+import GasList from './components/GasList';
+import Banner from '../Banner';
 
 const TodoScreen = ({ todo_list, deleteTodo, navigation }) => {
 
@@ -21,6 +22,7 @@ const TodoScreen = ({ todo_list, deleteTodo, navigation }) => {
 
     return ( 
         <SafeAreaView style={{flex : 1, backgroundColor: COLORS.white}}>
+            <Banner/>
             <Tab setFilter={setFilter}/>
             {filter == "휴게소" ? (<TodoList todo_list={todo_list} onNavi={navigationToFoodList} handleDeleteTodo={handleDeleteTodo} />) : <></>}
             {filter == "주유소" ? (<GasList todo_list={todo_list} onNavi={navigationToFoodList} handleDeleteTodo={handleDeleteTodo} />) : <></>}

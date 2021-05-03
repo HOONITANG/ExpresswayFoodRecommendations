@@ -12,6 +12,7 @@ import {
 } from './routes';
 import TopTabNavigation from './TopTabNavigation';
 import { Icon } from '../common/elements';
+import { COLORS } from '../common/elements/theme';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +20,9 @@ const BottomTabNavigator = ({ navigation }) => {
     return (
         <Tab.Navigator
             lazy
+            tabBarOptions={{
+                activeTintColor: COLORS.primary,
+            }}
         >
             <Tab.Screen
                 name={NAVIGATION_HOME}
@@ -29,7 +33,7 @@ const BottomTabNavigator = ({ navigation }) => {
                             <Icon
                             type="ionicon"
                             name={focused ? 'list' : 'list-outline'}
-                            color={color}
+                            color={focused ? COLORS.primary : color}
                             />
                         ),
                     }}
@@ -43,7 +47,7 @@ const BottomTabNavigator = ({ navigation }) => {
                             <Icon
                             type="fontisto"
                             name="favorite"
-                            color={color}
+                            color={focused ? COLORS.primary : color}
                             />
                         ),
                     }}
@@ -67,7 +71,7 @@ const BottomTabNavigator = ({ navigation }) => {
                         <Icon 
                             type="feather"
                             name="map"
-                            color={ color }
+                            color={ focused ? COLORS.primary : color }
                         />
                     )
                 }}

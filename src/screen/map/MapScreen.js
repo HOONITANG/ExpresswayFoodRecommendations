@@ -6,9 +6,9 @@ import useLocation from '../hook/useLocation';
 import { FilterModal, GpsButton, Header, MapView, MyMarker, Markers } from './components';
 import { NAVIGATION_FOODLIST, NAVIGATION_SEARCH } from '../../navigation/routes';
 
-
 function MapScreen ({ navigation }) {
     const { open, openModal, closeModal } = useModal();
+    const [loaded, setLoaded ] = useState(false);
     const { myLocation, setLocation, requestPermission, receiveLocation, moveLocation } = useLocation();
     const [ placeholder , setPlaceholder ] = useState('경부선')
     const [ routeNo, setRouteNo ] = useState('0010'); 
@@ -26,6 +26,7 @@ function MapScreen ({ navigation }) {
     const handleGpsClick = () => {
         moveLocation(setLocation, mapRef);
     }
+
 
     useEffect(() => { 
         requestPermission().then(result => receiveLocation(result, setLocation))

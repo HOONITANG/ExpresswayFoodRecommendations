@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "495458058260",
+    "project_id": "restfood-1439f",
+    "storage_bucket": "restfood-1439f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495458058260:android:ad3d127fd967a41f9e6701",
+        "android_client_info": {
+          "package_name": "com.kemiez.expresswayfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495458058260-v0j4684e6pr800sr1a0kbrjlav06126e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt7pe3VaIl6tSh6-jC7cxKFr1fJZvsuZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495458058260-v0j4684e6pr800sr1a0kbrjlav06126e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
